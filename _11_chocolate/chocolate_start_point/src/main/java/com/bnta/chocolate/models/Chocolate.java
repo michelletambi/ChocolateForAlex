@@ -1,20 +1,23 @@
 package com.bnta.chocolate.models;
 
+
 import javax.persistence.*;
 
-
+@Entity
 public class Chocolate {
-
-
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     private String name;
 
     private int cocoaPercentage;
-
-
+//    There are *many* chocolates but each chocolate will have *one* estate. e.g Galaxy chocolate is
+//    probably made with cocoa from one cocoa farm.
+    @ManyToOne
     private Estate estate;
+
+
 
     public Chocolate(String name, int cocoaPercentage, Estate estate) {
         this.name = name;

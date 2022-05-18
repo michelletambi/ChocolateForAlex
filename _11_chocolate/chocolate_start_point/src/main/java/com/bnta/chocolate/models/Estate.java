@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
+@Entity
 public class Estate {
-
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
@@ -18,9 +18,15 @@ public class Estate {
 
 
     private String country;
+    @JsonIgnoreProperties({"estate"})
+//  *One* estate can have *chocolates* e.g. One cocoa farm will produce many chocolates
+    /* Relationship from this perspective is @OneToMany.
+    mappedBy = ? where ? indicates the inverse of this relationship.
 
-
+     */
+    @OneToMany (mappedBy = "estate", cascade = CascadeType.ALL)
     private List<Chocolate> chocolates;
+
 
     public Estate(String name, String country) {
         this.name = name;
